@@ -1,6 +1,6 @@
 {
-  "name": "@vtjs/mongoose",
-  "version": "0.1.8",
+  "name": "@hiennc/mongoose",
+  "version": "1.0.0",
   "description": "Mongoose",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -18,13 +18,13 @@
     "mongoose",
     "typescript"
   ],
-  "author": "Nguyen Van Tuan",
+  "author": "Hien Nguyen",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vtuanjs/mongoose.git"
+    "url": "git+https://github.com/hiennchat/mongoose.git"
   },
-  "homepage": "https://github.com/vtuanjs/mongoose#readme",
+  "homepage": "https://github.com/hiennchat/mongoose#readme",
   "devDependencies": {
     "@types/chai": "^4.2.18",
     "@types/mocha": "^8.2.2",
@@ -43,5 +43,9 @@
   },
   "dependencies": {
     "mongoose": "5.10.5"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }

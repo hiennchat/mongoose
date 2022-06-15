@@ -1,4 +1,4 @@
 ## MONGOOSE
 
 ### INSTALL
-npm install @vtjs/mongoose
+npm install @hiennc/mongoose
