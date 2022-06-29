@@ -33,9 +33,7 @@ export class MongoDB {
       user: this.config.user,
       pass: this.config.password,
       useUnifiedTopology: true,
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useFindAndModify: false
+      useNewUrlParser: true
     });
   }
 
