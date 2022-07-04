@@ -6,7 +6,11 @@ import {
   Model,
   FilterQuery,
   CreateQuery,
-  UpdateQuery
+  UpdateQuery,
+  QueryOptions,
+  UpdateWithAggregationPipeline,
+  UpdateWriteOpResult,
+  Callback
 } from 'mongoose';
 
 import { FindAllOption, FindAllResponse, IBaseRepository, UpdateOptions } from './definitions';
@@ -37,7 +41,7 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
   } {
     const object: Record<string, string> = {};
     for (const key of Object.keys(subDocument)) {
-      object[`${subDocumentName}.$.${key}`] = (subDocument as any)[key];
+      object[`${'subDocumentName'}.$.${key}`] = (subDocument as any)[key];
     }
     return object;
   }
@@ -139,6 +143,16 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
   async count(cond: Partial<T>): Promise<number> {
     const count = await this.model.countDocuments(cond as FilterQuery<T & Document>);
     return count;
+  }
+
+  @Repository()
+  async updateOne(
+    filter?: FilterQuery<T>,
+    update?: UpdateQuery<T> | UpdateWithAggregationPipeline,
+    options?: QueryOptions<T> | null,
+    callback?: Callback<UpdateWriteOpResult>
+  ): Promise<any> {
+    return this.model.updateOne(filter, update, options, callback);
   }
 }
 
