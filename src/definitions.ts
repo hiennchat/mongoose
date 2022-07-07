@@ -18,6 +18,7 @@ export interface IBaseRepository<T> {
   findOneAndUpdate(cond: Partial<T>, doc: Partial<T>, options?: UpdateOptions): Promise<T>;
   findMany(cond: Partial<T>): Promise<T[]>;
   findAll(cond: Partial<T>, option?: Partial<FindAllOption>): Promise<FindAllResponse<T>>;
+  updateOne(filter?: any, update?: any, options?: any, callback?: any): Promise<T>;
 }
 
 export interface ILogger {

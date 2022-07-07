@@ -151,8 +151,9 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     update?: UpdateQuery<T> | UpdateWithAggregationPipeline,
     options?: QueryOptions<T> | null,
     callback?: Callback<UpdateWriteOpResult>
-  ): Promise<any> {
-    return this.model.updateOne(filter, update, options, callback);
+  ): Promise<T> {
+    const raw = await this.model.updateOne(filter, update, options, callback);
+    return raw as unknown as T;
   }
 }
 
