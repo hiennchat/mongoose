@@ -10,10 +10,14 @@ import {
   QueryOptions,
   UpdateWithAggregationPipeline,
   UpdateWriteOpResult,
-  Callback
+  Callback,
+  ProjectionType,
+  PipelineStage,
+  Aggregate
 } from 'mongoose';
 
 import { FindAllOption, FindAllResponse, IBaseRepository, UpdateOptions } from './definitions';
+import mongodb = require('mongodb');
 
 export abstract class BaseRepository<T> implements IBaseRepository<T> {
   model: Model<T & Document>;
@@ -155,6 +159,23 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
     const raw = await this.model.updateOne(filter, update, options, callback);
     return raw as unknown as T;
   }
+
+  @Repository()
+  async find(
+    filter: FilterQuery<T>,
+    projection?: ProjectionType<T> | null | undefined,
+    options?: QueryOptions<T> | null | undefined,
+    callback?: Callback<any> | undefined
+  ): Promise<T> {
+    const entity = await this.model.find(filter, projection, options, callback);
+    return entity as unknown as T;
+  }
+
+  // @Repository()
+  // async aggregate(pipeline: Array<any>, options?: mongodb.AggregateOptions): Promise<T> {
+  //   const entity = await this.model.aggregate(pipeline, options);
+  //   return entity as unknown as T;
+  // }
 }
 
 export function Repository(transformInputCondition = true, transformOutputEntities = true) {
